@@ -1,15 +1,21 @@
 import {request} from '../utils/axios';
+import jwt_decode from "jwt-decode";
 
 const API_URL = 'auth/';
 
 class AuthService {
-  login(username: string, password: string) {
-    return request('post', API_URL + 'login', {username, password})
+  login(email: string, password: string) {
+    return request('post', API_URL + 'login', {email, password})
       .then((response) => {
-        if (response.data.accessToken) {
-          localStorage.setItem('user', JSON.stringify(response.data));
+        if (response.data === '자격 증명에 실패하였습니다.') {
+          throw new Error('자격 증명에 실패하였습니다.');
         }
-        return response;
+        if (response.data.accessToken) {
+          const info: any = jwt_decode(response.data.accessToken);
+          localStorage.setItem('user', JSON.stringify({...response.data, ...info}));
+        }
+
+        return response.data;
       });
   }
 

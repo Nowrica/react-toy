@@ -8,6 +8,10 @@ export const request = (method: any, url: string, data?: any) =>
   axios({
     method,
     url: DOMAIN + url,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+    withCredentials: false,
     data,
   })
     .then((res) => res.data)

@@ -1,16 +1,32 @@
-// @ts-ignore
-export const Profile = ({user}) => {
-  const {email, password, name} = user || {};
+import React from 'react';
+import {Redirect} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+
+const Profile = () => {
+  const {user: currentUser} = useSelector((state: any) => state.auth);
+
+  if (!currentUser) {
+    return <Redirect to="/login"/>;
+  }
 
   return (
-    <div>
-      <h1>Profile</h1>
-      <dt>Email</dt>
-      <dd>{email}</dd>
-      <dt>Password</dt>
-      <dd>{password}</dd>
-      <dt>Name</dt>
-      <dd>{name}</dd>
+    <div className="container">
+      <header className="jumbotron">
+        <h3>
+          <strong>Profile</strong>
+        </h3>
+      </header>
+      <p>
+        <strong>Token:</strong> {currentUser.accessToken}
+      </p>
+      <p>
+        <strong>email:</strong> {currentUser.sub}
+      </p>
+      <p>
+        <strong>role:</strong> {currentUser.auth}
+      </p>
     </div>
   );
-}
+};
+
+export default Profile;
