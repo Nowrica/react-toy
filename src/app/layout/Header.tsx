@@ -31,11 +31,14 @@ export default function Header() {
           <button>login</button>
         </Link>) :
         (<Link to="/login" onClick={logOut}>
-          LogOut
+          <button> Logout</button>
         </Link>)
       }
       <Link to="/profile">
         <button>profile</button>
+      </Link>
+      <Link to="/detail">
+        <button>detail</button>
       </Link>
     </header>
   )

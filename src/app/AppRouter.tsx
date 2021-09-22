@@ -52,9 +52,7 @@ export default function AppRouter() {
         <Route exact path={['/', '/home']} component={Home}/>
         <Route exact path="/login" component={Login}/>
         <Route exact path="/profile" component={Profile}/>
-        <Route path="/detail/:id">
-          <Detail/>
-        </Route>
+        <Route path="/detail" component={Detail}/>
       </Switch>
     </Router>
   );
